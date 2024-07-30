@@ -45,4 +45,18 @@ class CustomUserAdmin(BaseUserAdmin):
 
 
 admin.site.register(User, CustomUserAdmin)
-admin.site.register(Profile)
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    def get_fields(self, request, obj=None):
+        return ["user", "Name", "Family", "Sex"]
+
+    def get_list_display(self, request):
+        return ["user", "Name", "Family", "Sex"]
+
+    def get_search_fields(self, request):
+        return ["user", ]
+
+    def get_list_filter(self, request, filters=None):
+        return ["user", ]

@@ -1,4 +1,3 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db.models.signals import post_save
@@ -51,7 +50,7 @@ class Profile(models.Model):
     )  # Date and time when profile was last updated
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
 
 # Signal to create profile when user is created
