@@ -39,9 +39,9 @@ class Profile(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE
     )  # Foreign key relation with User model
-    Name = models.CharField(max_length=255, blank=True, null=True)
-    Family = models.CharField(max_length=255, blank=True, null=True)
-    Sex = models.BooleanField(default=False)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    family = models.CharField(max_length=255, blank=True, null=True)
+    sex = models.BooleanField(default=False)
     create_date = models.DateTimeField(
         auto_now_add=True
     )  # Date and time when profile was created

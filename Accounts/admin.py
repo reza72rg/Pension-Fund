@@ -50,10 +50,10 @@ admin.site.register(User, CustomUserAdmin)
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     def get_fields(self, request, obj=None):
-        return ["user", "Name", "Family", "Sex"]
+        return ["user", "name", "family", "sex"]
 
     def get_list_display(self, request):
-        return ["user", "Name", "Family", "Sex"]
+        return ["user", "name", "family", "sex"]
 
     def get_search_fields(self, request):
         return ["user", ]

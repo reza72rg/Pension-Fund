@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+
+  <form action="{% url 'pension:profile_edit' request.user.id %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <label for="username">Username:</label>
+      <input type="text" class="form-control" value="{{ username }}" name="user"><br><br>
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" value="{{ profile.name }}" name="name"><br><br>
+      <label for="family">Family:</label>
+      <input type="text" class="form-control" value="{{ profile.family }}" name="family"><br><br>
+
+
+      <label for="sex">Sex:</label>
+      <input type="checkbox" {% if profile.sex %}checked{% endif %} name="sex"><br><br>
+      <button class="btn btn-outline-primary" type="submit">Change Data</button>
+  </form>
+</body>
+</html>
