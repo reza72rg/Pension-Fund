@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.views import View
 
@@ -5,5 +6,5 @@ from django.views import View
 # Create your views here.
 
 
-class HomePageView(View):
+class HomePageView(LoginRequiredMixin, View):
     pass

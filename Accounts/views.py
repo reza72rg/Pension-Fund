@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 
 class CustomLoginView(LoginView):
     template_name = "accounts/login.html"
+    fields = "username", "password"
     redirect_authenticated_user = True  # Redirect to success URL if user is already authenticated
 
     def get_success_url(self):
