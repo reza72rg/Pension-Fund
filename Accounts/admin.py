@@ -53,7 +53,7 @@ class ProfileAdmin(admin.ModelAdmin):
         return ["user", "name", "family", "sex"]
 
     def get_list_display(self, request):
-        return ["user", "name", "family", "sex"]
+        return ["user", "name", "family", "sex", "uuid"]
 
     def get_search_fields(self, request):
         return ["user", ]

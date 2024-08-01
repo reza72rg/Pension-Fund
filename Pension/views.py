@@ -12,7 +12,7 @@ class HomePageView(LoginRequiredMixin, View):
     pass
 
 
-class ProfileEditView(LoginRequiredMixin, UpdateView):
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
     template_name = 'pension/profile.html'
     model = Profile
     fields = ['name', 'family', 'sex']
@@ -23,7 +23,7 @@ class ProfileEditView(LoginRequiredMixin, UpdateView):
         username = get_object_or_404(User, username=self.request.user)
         username.username = value
         username.save()
-        return super(ProfileEditView, self).form_valid(form)
+        return super(UpdateProfileView, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

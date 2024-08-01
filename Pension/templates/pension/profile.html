@@ -6,7 +6,7 @@
 </head>
 <body>
 
-  <form action="{% url 'pension:profile_edit' request.user.id %}" method="post" enctype="multipart/form-data">
+  <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       <label for="username">Username:</label>
       <input type="text" class="form-control" value="{{ username }}" name="user"><br><br>

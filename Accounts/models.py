@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import uuid
 from Accounts.managers import UserManager
 
 
@@ -30,6 +31,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     objects = UserManager()  # Manager for user model
 
+    class Meta:
+        db_table = 'user'  # Specify the custom table name here
+
     def __str__(self):
         return self.username
 
@@ -42,12 +46,16 @@ class Profile(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     family = models.CharField(max_length=255, blank=True, null=True)
     sex = models.BooleanField(default=False)
+    uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     create_date = models.DateTimeField(
         auto_now_add=True
     )  # Date and time when profile was created
     update_date = models.DateTimeField(
         auto_now=True
     )  # Date and time when profile was last updated
+
+    class Meta:
+        db_table = 'profile'
 
     def __str__(self):
         return self.user.username

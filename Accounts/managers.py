@@ -11,7 +11,9 @@ class UserManager(BaseUserManager):
 
         # Directly use the username without normalization
         user = self.model(username=username, **extra_fields)
-        user.set_password(password)
+        # Set the raw password (do not hash it)
+        user.password = password
+
         user.save(using=self._db)
         return user
 
