@@ -130,5 +130,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTHENTICATION_BACKENDS = (
     'Accounts.backend.PlaintextPasswordBackend',
-    'django.contrib.auth.backends.ModelBackend', # Keep this as a fallback for other auths
+    'django.contrib.auth.backends.ModelBackend',  # Keep this as a fallback for other auths
 )
