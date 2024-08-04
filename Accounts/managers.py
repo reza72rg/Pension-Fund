@@ -1,5 +1,6 @@
 from django.contrib.auth.models import BaseUserManager
 from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.hashers import make_password
 
 
 # Custom User Manager
@@ -12,7 +13,9 @@ class UserManager(BaseUserManager):
         # Directly use the username without normalization
         user = self.model(username=username, **extra_fields)
         # Set the raw password (do not hash it)
-        user.password = password
+
+        # Hash the password before saving it
+        user.password = make_password(password)
 
         user.save(using=self._db)
         return user

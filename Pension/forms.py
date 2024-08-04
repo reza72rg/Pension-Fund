@@ -1,5 +1,5 @@
 from django import forms
-from Accounts.models import User, Profile
+from Accounts.models import CustomUser
 from django.core.exceptions import ValidationError
 
 
@@ -7,11 +7,7 @@ class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
 
     class Meta:
-        model = User
-        fields = ['username', ]
+        model = CustomUser
+        fields = ['username', 'name', 'family', 'sex']
 
 
-class ProfileUpdateForm(forms.ModelForm):
-    class Meta:
-        model = Profile
-        fields = ['name', 'family', 'sex']

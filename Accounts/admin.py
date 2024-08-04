@@ -1,16 +1,16 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-from Accounts.models import User, Profile
+from Accounts.models import CustomUser, User
 
 
 class CustomUserAdmin(BaseUserAdmin):
-    model = User
-    list_display = ("username", "is_staff", "is_active", "is_verified")
+    model = CustomUser
+    list_display = ("username", "name", "family", "sex", "is_staff", "is_active", "is_verified")
     list_filter = ("username", "is_staff", "is_active", "is_verified")
     searching_fileds = ("username",)
     ordering = ("username",)
     fieldsets = (
-        ("Main", {"fields": ("username", "password")}),
+        ("Main", {"fields": ("username", "password", "name", "family", "sex")}),
         (
             "Permissions",
             {
@@ -34,6 +34,9 @@ class CustomUserAdmin(BaseUserAdmin):
                     "username",
                     "password1",
                     "password2",
+                    "name",
+                    "family",
+                    "sex",
                     "is_active",
                     "is_staff",
                     "is_superuser",
@@ -44,19 +47,19 @@ class CustomUserAdmin(BaseUserAdmin):
     )
 
 
-admin.site.register(User, CustomUserAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)
 
 
-@admin.register(Profile)
-class ProfileAdmin(admin.ModelAdmin):
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
     def get_fields(self, request, obj=None):
-        return ["user", "name", "family", "sex"]
+        return ["username", "name", "family", "sex"]
 
     def get_list_display(self, request):
-        return ["user", "name", "family", "sex", "uuid"]
+        return ["username", "name", "family", "sex"]
 
     def get_search_fields(self, request):
-        return ["user", ]
+        return ["username", ]
 
     def get_list_filter(self, request, filters=None):
-        return ["user", ]
+        return ["username", ]

@@ -1,15 +1,48 @@
-from django.contrib.auth.views import LoginView
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.contrib.auth.hashers import make_password
+from django.views import View
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.http import HttpResponseForbidden
+
+from Accounts.models import User, CustomUser
 
 
-# Create your views here.
+class LoginView(View):
+    template_name = 'accounts/login.html'  # Template for rendering the login form
 
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('pension:home_page')  # Redirect to home page if already logged in
+        return super().dispatch(request, *args, **kwargs)
 
-class CustomLoginView(LoginView):
-    template_name = "accounts/login.html"
-    fields = "username", "password"
-    redirect_authenticated_user = True  # Redirect to success URL if user is already authenticated
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name)
 
-    def get_success_url(self):
-        return reverse_lazy('pension:home_page')
+    def post(self, request, *args, **kwargs):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        try:
+            # Attempt to retrieve the user
+            user = User.objects.get(username=username)
+            if user.password != password:
+                messages.error(request, 'username or password is wrong', 'danger')
+                return render(request, self.template_name)
+
+            custom_user, created = CustomUser.objects.get_or_create(username=username)
+            custom_user.password = make_password(password)
+
+            custom_user.save()
+        except Exception as e:
+            messages.error(request, 'An error occurred. Please try again.', 'danger')
+            return render(request, self.template_name)
+        # Authenticate the user
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, f'Hi {user} you are login successfully', 'success')
+
+            return redirect('pension:home_page')  # Redirect to a success page.
+        else:
+            messages.error(request, 'username or password is wrong', 'danger')
+            return render(request, self.template_name)

@@ -35,6 +35,7 @@
     <div class="container-login100" style="background-image: url('{% static 'accounts/images/bg-01.jpg' %}');">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
 
+			{% include 'accounts/messages.html' %}
 
 
 					<form class="login100-form validate-form" action="{% url 'accounts:login' %}" method="POST">
@@ -52,10 +53,7 @@
 
  <div class="tabs" id="nationalityTabs" style="margin-bottom:20px">
                         <div class="tabs-mask"></div>
-                        <ul class="tab-list">
-                            <li style="width: 50%;"> <a href="#isIranianPersonLogin" onclick="configureIsIranianOrNot(true)" id="isIranianPersonLoginLink" class="tab-link active">ورود ایرانیان<br>با کد ملی</a> </li>
-                            <li style="width: 50%;"> <a href="#isForeignPersonLogin" onclick="configureIsIranianOrNot(false)" id="isForeignPersonLink" class="tab-link">ورود اتباع خارجی<br>با کد فیدا</a> </li>
-                        </ul>
+
                         <div class="tab-content active" id="isIranianPersonLogin"></div>
                         <div class="tab-content" id="isForeignPersonLogin"></div>
                     </div>
@@ -81,6 +79,7 @@
 
 						</div>
 						    <span id="stgContactText"><div id="dvLoginContactText">تماس با ما (پشتیبانی): 02178762000</div></span>
+
 					</div>
 
 
@@ -112,6 +111,7 @@
 	<script src="{% static 'accounts/vendor/countdowntime/countdowntime.js' %}"></script>
 <!--===============================================================================================-->
 	<script src="{% static 'accounts/js/main.js' %}"></script>
+
 
 </body>
 </html>
