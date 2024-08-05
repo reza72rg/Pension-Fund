@@ -68,12 +68,23 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
     'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'reza72rg_db_mysql',
+            'USER': 'reza72rg',
+            'PASSWORD': '3600006283Rez@$g',
+            'HOST': 'localhost',
+            'PORT': '3306',
+        },
+    'sql_server': {
         'ENGINE': env('DATABASE_ENGINE'),
         'NAME': env('DATABASE_NAME'),
         'USER': env('DATABASE_USER'),
         'PASSWORD': env('DATABASE_PASSWORD'),
         'HOST': env('DATABASE_HOST'),  # Corrected to match variable
         'PORT': env('DATABASE_PORT'),   # Added to match variable
+        'OPTIONS': {
+            'driver': 'ODBC Driver 17 for SQL Server',
+        },
     }
 }
 

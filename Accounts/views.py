@@ -1,4 +1,5 @@
 from django.contrib.auth.hashers import make_password
+from django.urls import reverse
 from django.views import View
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -13,7 +14,8 @@ class LoginView(View):
 
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('pension:home_page')  # Redirect to home page if already logged in
+            return redirect(
+                reverse('pension:update_profile', kwargs={'pk': request.user.id}))  # Redirect to home page if already logged in
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
@@ -40,9 +42,8 @@ class LoginView(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, f'Hi {user} you are login successfully', 'success')
-
-            return redirect('pension:home_page')  # Redirect to a success page.
+            return redirect(
+                reverse('pension:update_profile', kwargs={'pk': custom_user.id}))
         else:
             messages.error(request, 'username or password is wrong', 'danger')
             return render(request, self.template_name)
